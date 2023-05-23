@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class QueueService implements Service {
-    Map<String, Queue<String>> queues = new ConcurrentHashMap<>();
+    private final Map<String, Queue<String>> queues = new ConcurrentHashMap<>();
 
     @Override
     public Response process(Request request) {
@@ -17,7 +17,9 @@ public class QueueService implements Service {
                 queues.get(request.sourceName()).add(request.param());
             }
             case "GET" -> {
-                result = queues.getOrDefault(request.sourceName(), new ConcurrentLinkedQueue<>()).poll();
+                result = queues.getOrDefault(
+                        request.sourceName(), new ConcurrentLinkedQueue<>()
+                ).poll();
             }
             default -> throw new IllegalStateException();
         }

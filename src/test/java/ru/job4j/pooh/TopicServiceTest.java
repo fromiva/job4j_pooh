@@ -12,7 +12,8 @@ class TopicServiceTest {
         String paramForSubscriber1 = "client407";
         service.process(new Request("GET", "topic", "weather", paramForSubscriber1));
         service.process(new Request("POST", "topic", "weather", paramForPublisher));
-        Response result1 = service.process(new Request("GET", "topic", "weather", paramForSubscriber1));
+        Response result1 = service.process(
+                new Request("GET", "topic", "weather", paramForSubscriber1));
         assertThat(result1.text()).isEqualTo("temperature=18");
     }
 
@@ -24,8 +25,10 @@ class TopicServiceTest {
         String paramForSubscriber2 = "client6565";
         service.process(new Request("GET", "topic", "weather", paramForSubscriber1));
         service.process(new Request("POST", "topic", "weather", paramForPublisher));
-        Response result1 = service.process(new Request("GET", "topic", "weather", paramForSubscriber1));
-        Response result2 = service.process(new Request("GET", "topic", "weather", paramForSubscriber2));
+        Response result1 = service.process(
+                new Request("GET", "topic", "weather", paramForSubscriber1));
+        Response result2 = service.process(
+                new Request("GET", "topic", "weather", paramForSubscriber2));
         assertThat(result1.text()).isEqualTo("temperature=18");
         assertThat(result2.text()).isEqualTo("");
     }
@@ -43,10 +46,14 @@ class TopicServiceTest {
         service.process(new Request("GET", "topic", "news", paramForSubscriber2));
         service.process(new Request("POST", "topic", "news", paramForPublisher2));
         service.process(new Request("POST", "topic", "news", paramForPublisher3));
-        Response result1 = service.process(new Request("GET", "topic", "weather", paramForSubscriber1));
-        Response result2 = service.process(new Request("GET", "topic", "weather", paramForSubscriber2));
-        Response result3 = service.process(new Request("GET", "topic", "news", paramForSubscriber2));
-        Response result4 = service.process(new Request("GET", "topic", "news", paramForSubscriber2));
+        Response result1 = service.process(
+                new Request("GET", "topic", "weather", paramForSubscriber1));
+        Response result2 = service.process(
+                new Request("GET", "topic", "weather", paramForSubscriber2));
+        Response result3 = service.process(
+                new Request("GET", "topic", "news", paramForSubscriber2));
+        Response result4 = service.process(
+                new Request("GET", "topic", "news", paramForSubscriber2));
         assertThat(result1.text()).isEqualTo(paramForPublisher1);
         assertThat(result2.text()).isEqualTo("");
         assertThat(result3.text()).isEqualTo(paramForPublisher2);

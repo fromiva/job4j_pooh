@@ -22,7 +22,8 @@ public class PoohServer {
     public void start() {
         modes.put("queue", new QueueService());
         modes.put("topic", new TopicService());
-        ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService pool = Executors
+                .newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         try (ServerSocket server = new ServerSocket(9000)) {
             while (!server.isClosed()) {
                 Socket socket = server.accept();
@@ -39,7 +40,8 @@ public class PoohServer {
                  InputStream in = socket.getInputStream()) {
                 byte[] buffer = new byte[1_000_000];
                 int total = in.read(buffer);
-                String content = new String(Arrays.copyOfRange(buffer, 0, total), StandardCharsets.UTF_8);
+                String content = new String(
+                        Arrays.copyOfRange(buffer, 0, total), StandardCharsets.UTF_8);
                 Request request = Request.of(content);
                 Response response = modes.getOrDefault(
                         request.poohMode(),
